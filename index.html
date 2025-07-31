@@ -4,61 +4,140 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Global Hoy</title>
-  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
+  <!-- Menú desplegable de usuario -->
   <header>
-    <h1> Global Hoy</h1>
-    <nav class="user-menu">
-      <button id="menu-button">☰ Usuario</button>
-      <ul id="dropdown-menu" class="hidden">
-        <li><a href="#" data-translate="news_by_country">Noticias por País</a></li>
-        <li><a href="#" data-translate="language">Idioma</a></li>
-        <li><a href="#" data-translate="favorites">⭐ Favoritos</a></li>
-        <li><a href="#" data-translate="history">Historial</a></li>
-        <li><a href="#" data-translate="notifications">Notificaciones</a></li>
-        <li><a href="#" data-translate="profile">⚙ Perfil</a></li>
-        <li><a href="#" data-translate="logout">Cerrar sesión</a></li>
+    <div class="menu">
+      <span class="menu-toggle">☰ Usuario</span>
+      <ul class="menu-opciones">
+        <li><a href="#">Perfil</a></li>
+        <li><a href="#">Noticias por país</a></li>
+        <li><a href="#">Idioma</a></li>
+        <li><a href="#">Favoritos</a></li>
+        <li><a href="#">Historial</a></li>
+        <li><a href="#">Notificaciones</a></li>
+        <li><a href="#">Cerrar sesión</a></li>
       </ul>
-    </nav>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2 data-translate="welcome">Bienvenido a Global Hoy</h2>
-      <p>Tu fuente de noticias locales e internacionales, personalizadas por país y en tu idioma.</p>
-      <h2 id="local-news-title"></h2>
-    </section>
+  <!-- Bienvenida -->
+  <section>
+    <h1>Welcome to Global Hoy</h1>
+    <p>Tu fuente de noticias locales e internacionales, personalizadas por país y en tu idioma.</p>
+  </section>
 
-    <section id="local-news">
-      <!-- Las noticias locales se cargarán aquí -->
-    </section>
+  <!-- Noticias Locales -->
+  <section id="noticias-locales">
+    <h2>Noticias en <span id="pais-actual">tu país</span></h2>
+    <ul id="lista-noticias-locales"></ul>
+  </section>
 
-    <section id="ultimas-noticias-section">
-      <div id="noticias-container">
-        <h2 data-translate="latest_news">Últimas Noticias</h2>
-        <ul id="lista-noticias"></ul>
-      </div>
-    </section>
+  <!-- Noticias internacionales (Latest News) -->
+  <section>
+    <h2>Latest News</h2>
+    <ul id="lista-noticias"></ul>
+  </section>
 
-    <section id="ads-section">
-      <div id="ads">
-        <!-- Los anuncios específicos por país se cargarán aquí -->
-      </div>
-    </section>
+  <!-- Anuncios Locales -->
+  <section id="anuncio-local">
+    <h3>Anuncio para <span id="pais-anuncio">tu país</span></h3>
+    <p id="contenido-anuncio">...</p>
+  </section>
 
-    <section id="subscribe-section">
-      <h3 data-translate="subscribe">Suscribirse a las Noticias</h3>
-      <input type="email" id="email-input" data-translate-placeholder="email_placeholder">
-      <button data-translate="subscribe">Suscribirse</button>
-    </section>
+  <!-- Suscripción -->
+  <section>
+    <h2>Subscribe to News</h2>
+    <input type="email" placeholder="Enter your email" id="email-input" />
+    <button onclick="suscribirse()">Subscribe to News</button>
+  </section>
 
-  </main>
+  <!-- Script de detección + carga -->
+  <script>
+    async function detectarPais() {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        return data.country_code.toLowerCase(); // Ej: 'us', 'es', 'do'
+      } catch (error) {
+        console.error('Error al detectar país:', error);
+        return 'us'; // por defecto
+      }
+    }
 
-  <footer>
-    <p>&copy; 2025 Global Hoy. Todos los derechos reservados.</p>
-  </footer>
+    async function cargarNoticiasLocales(pais) {
+      document.getElementById('pais-actual').textContent = pais.toUpperCase();
+      const ruta = `public/noticias/${pais}.json`;
+      try {
+        const res = await fetch(ruta);
+        const noticias = await res.json();
+        const ul = document.getElementById('lista-noticias-locales');
+        noticias.forEach(noticia => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${noticia.titulo}</strong><p>${noticia.descripcion}</p>`;
+          ul.appendChild(li);
+        });
+      } catch (e) {
+        console.error('Error cargando noticias locales:', e);
+      }
+    }
 
-  <script src="js/main.js"></script>
+    async function cargarNoticiasGlobales() {
+      try {
+        const res = await fetch('public/noticias/global.json');
+        const noticias = await res.json();
+        const ul = document.getElementById('lista-noticias');
+        noticias.forEach(noticia => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${noticia.url}" target="_blank">${noticia.titulo}</a>`;
+          ul.appendChild(li);
+        });
+      } catch (e) {
+        console.error('Error cargando noticias globales:', e);
+      }
+    }
+
+    async function cargarAnuncios(pais) {
+      const anuncios = {
+        do: "¡Disfruta de nuestras noticias desde República Dominicana!",
+        us: "Noticias importantes para ti desde EE.UU.",
+        es: "Lo último que pasa en España, aquí en Global Hoy"
+      };
+      document.getElementById('pais-anuncio').textContent = pais.toUpperCase();
+      document.getElementById('contenido-anuncio').textContent = anuncios[pais] || "Bienvenido a Global Hoy.";
+    }
+
+    function suscribirse() {
+      const email = document.getElementById('email-input').value;
+      alert(`Gracias por suscribirte con: ${email}`);
+      // Aquí puedes enviar el email a tu base de datos o API
+    }
+
+    // Ejecutar
+    (async () => {
+      const pais = await detectarPais();
+      await cargarNoticiasLocales(pais);
+      await cargarNoticiasGlobales();
+      await cargarAnuncios(pais);
+    })();
+
+    // Lógica para el menú desplegable
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const menuOpciones = document.querySelector('.menu-opciones');
+
+      if (menuToggle && menuOpciones) {
+        menuToggle.addEventListener('click', function() {
+          menuOpciones.classList.toggle('visible');
+        });
+      }
+    });
+  </script>
+  <script src="js/cookies.js"></script>
+  <script src="js/favoritos.js"></script>
+  <script src="js/historial.js"></script>
+  <script src="js/notificaciones.js"></script>
 </body>
 </html>

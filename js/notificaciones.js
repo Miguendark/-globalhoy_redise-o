@@ -1,0 +1,2 @@
+function mostrarNotificacion(titulo, mensaje) {  if (!("Notification" in window)) {    alert(`${titulo}
+${mensaje}`);  } else if (Notification.permission === "granted") {    new Notification(titulo, { body: mensaje });  } else if (Notification.permission !== "denied") {    Notification.requestPermission().then(function (permiso) {      if (permiso === "granted") {        new Notification(titulo, { body: mensaje });      }    });  }}// Ejemplo:// mostrarNotificacion("Nueva noticia", "Hay una nueva publicación disponible");
