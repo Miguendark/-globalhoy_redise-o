@@ -10,15 +10,14 @@
   <!-- Menú desplegable de usuario -->
   <header>
     <h1> Global Hoy</h1>
-    <div class="user-menu-container">
-      <button class="user-menu-button">☰ Usuario</button>
-      <div class="user-dropdown-menu">
-        <button onclick="cambiarPais()"> Cambiar país</button>
-        <button onclick="cambiarIdioma()"> Cambiar idioma</button>
-        <button onclick="verFavoritos()">⭐ Mis favoritos</button>
-        <button onclick="verHistorial()"> Mi historial</button>
-        <button onclick="toggleNotificaciones()"> Notificaciones</button>
-        <button onclick="cerrarSesion()"> Cerrar sesión</button>
+    <div class="user-menu">
+      <button id="menu-toggle">☰ Usuario</button>
+      <div class="dropdown-menu" id="dropdown">
+        <a href="#">Noticias por país</a>
+        <a href="#">Cambio de idioma</a>
+        <a href="#">Historial y favoritos</a>
+        <a href="#">Notificaciones</a>
+        <a href="#">Cerrar sesión</a>
       </div>
     </div>
   </header>
@@ -88,12 +87,13 @@
       cargarAnuncios(pais);
 
       // Lógica para el menú desplegable
-      const userMenuButton = document.querySelector('.user-menu-button');
-      const userDropdownMenu = document.querySelector('.user-dropdown-menu');
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById("menu-toggle");
+      const dropdown = document.getElementById("dropdown");
 
-      if (userMenuButton && userDropdownMenu) {
-        userMenuButton.addEventListener('click', function() {
-          userDropdownMenu.classList.toggle('visible');
+      if (menuToggle && dropdown) {
+        menuToggle.addEventListener("click", function () {
+          dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         });
       }
 
@@ -108,6 +108,7 @@
           modalIdioma.style.display = 'none';
         }
       };
+    });
     });
 
     // Esta función ya debe estar, pero si no:
