@@ -1,0 +1,16 @@
+{
+  "welcome": "Bienvenido a Global Hoy",
+  "latest_news": "Últimas Noticias",
+  "profile": "Perfil",
+  "logout": "Cerrar sesión",
+  "notifications": "Notificaciones",
+  "favorites": "Favoritos",
+  "history": "Historial",
+  "news_by_country": "Noticias por País",
+  "language": "Idioma",
+  "subscribe": "Suscribirse a las Noticias",
+  "email_placeholder": "Introduce tu correo electrónico",
+  "read_more": "Leer más",
+  "comments": "Comentarios",
+  "related_news": "Noticias Relacionadas"
+}

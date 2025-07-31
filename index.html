@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Global Hoy</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
   <header>
@@ -12,28 +12,53 @@
     <nav class="user-menu">
       <button id="menu-button">☰ Usuario</button>
       <ul id="dropdown-menu" class="hidden">
-        <li><a href="#"> Noticias por país</a></li>
-        <li><a href="#"> Idioma</a></li>
-        <li><a href="#">⭐ Favoritos</a></li>
-        <li><a href="#"> Historial</a></li>
-        <li><a href="#"> Notificaciones</a></li>
-        <li><a href="#">⚙ Perfil</a></li>
-        <li><a href="#"> Cerrar sesión</a></li>
+        <li><a href="#" data-translate="news_by_country">Noticias por País</a></li>
+        <li><a href="#" data-translate="language">Idioma</a></li>
+        <li><a href="#" data-translate="favorites">⭐ Favoritos</a></li>
+        <li><a href="#" data-translate="history">Historial</a></li>
+        <li><a href="#" data-translate="notifications">Notificaciones</a></li>
+        <li><a href="#" data-translate="profile">⚙ Perfil</a></li>
+        <li><a href="#" data-translate="logout">Cerrar sesión</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <section>
-      <h2>Bienvenido a Global Hoy</h2>
+      <h2 data-translate="welcome">Bienvenido a Global Hoy</h2>
       <p>Tu fuente de noticias locales e internacionales, personalizadas por país y en tu idioma.</p>
+      <h2 id="local-news-title"></h2>
     </section>
+
+    <section id="local-news">
+      <!-- Las noticias locales se cargarán aquí -->
+    </section>
+
+    <section id="ultimas-noticias-section">
+      <div id="noticias-container">
+        <h2 data-translate="latest_news">Últimas Noticias</h2>
+        <ul id="lista-noticias"></ul>
+      </div>
+    </section>
+
+    <section id="ads-section">
+      <div id="ads">
+        <!-- Los anuncios específicos por país se cargarán aquí -->
+      </div>
+    </section>
+
+    <section id="subscribe-section">
+      <h3 data-translate="subscribe">Suscribirse a las Noticias</h3>
+      <input type="email" id="email-input" data-translate-placeholder="email_placeholder">
+      <button data-translate="subscribe">Suscribirse</button>
+    </section>
+
   </main>
 
   <footer>
     <p>&copy; 2025 Global Hoy. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

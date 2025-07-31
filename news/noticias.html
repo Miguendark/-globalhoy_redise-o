@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noticias - Global Hoy</title>
+  <link rel="stylesheet" href="../css/styles.css"/>
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html" style="color: #fff; text-decoration: none;">Global Hoy</a></h1>
+    <nav class="user-menu">
+      <a href="../index.html" style="color: #fff; padding: 8px 12px; text-decoration: none;">Volver al Inicio</a>
+    </nav>
+  </header>
+
+  <main>
+    <div id="noticias-container">
+      <h2>Últimas Noticias</h2>
+      <ul id="lista-noticias"></ul>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Global Hoy. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    async function cargarNoticias(pais) {
+      const ruta = `../public/noticias/${pais}.json`;
+      try {
+        const response = await fetch(ruta);
+        if (!response.ok) {
+          throw new Error(`Archivo no encontrado o error de red: ${response.status}`);
+        }
+        const noticias = await response.json();
+
+        const lista = document.getElementById('lista-noticias');
+        if (lista) {
+          lista.innerHTML = ''; // Limpiar lista antes de añadir
+          noticias.forEach(noticia => {
+            const li = document.createElement('li');
+            const url = noticia.url || '#'; // Usar # si no hay URL
+            li.innerHTML = `<a href="${url}" target="_blank">${noticia.titulo}</a>`;
+            lista.appendChild(li);
+          });
+        }
+      } catch (error) {
+        console.error(`Error cargando noticias para ${pais}:`, error);
+        const lista = document.getElementById('lista-noticias');
+        if (lista) {
+          lista.innerHTML = `<li>No se pudieron cargar las noticias para ${pais}.</li>`;
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const pais = localStorage.getItem('userCountry');
+      if (pais) {
+        await cargarNoticias(pais.toLowerCase()); // Convertir a minúsculas para coincidir con nombres de archivo
+      } else {
+        console.warn('No se detectó el país del usuario. Cargando noticias por defecto (US).');
+        await cargarNoticias('us'); // Cargar por defecto si no hay país en localStorage
+      }
+    });
+  </script>
+</body>
+</html>
