@@ -1,0 +1,44 @@
+[
+  {
+    "id": "noticia-us-1",
+    "titulo": "EE.UU. anuncia medidas para reforzar la ciberseguridad",
+    "descripcion": "El gobierno invertirá en infraestructura digital para proteger datos públicos.",
+    "imagen": "img/noticia-us-1.jpg",
+    "contenido": "El gobierno de Estados Unidos ha anunciado hoy un ambicioso plan para reforzar la ciberseguridad nacional, con una inversión significativa en infraestructura digital y programas de capacitación. La iniciativa busca proteger tanto los datos gubernamentales como los de los ciudadanos frente a crecientes amenazas cibernéticas. Expertos en seguridad han elogiado la medida, aunque señalan que la implementación será clave para su éxito."
+  },
+  {
+    "id": "noticia-us-2",
+    "titulo": "Elecciones primarias se acercan en varios estados",
+    "descripcion": "Los votantes se preparan para las elecciones estatales clave del año.",
+    "imagen": "img/noticia-us-2.jpg",
+    "contenido": "Con las elecciones primarias a la vuelta de la esquina en varios estados clave, la actividad política se intensifica. Candidatos de ambos partidos están realizando mítines y campañas intensivas para asegurar el apoyo de los votantes. Se espera una alta participación en estas primarias, que sentarán las bases para las elecciones generales de noviembre."
+  },
+  {
+    "id": "noticia-es-1",
+    "titulo": "España lidera inversión en energía solar en Europa",
+    "descripcion": "El gobierno anuncia un plan de expansión energética sostenible.",
+    "imagen": "img/noticia-es-1.jpg",
+    "contenido": "España se ha posicionado a la vanguardia de la inversión en energía solar en Europa, gracias a un nuevo plan gubernamental que promueve la instalación de paneles solares y el desarrollo de tecnologías renovables. La medida busca no solo reducir la dependencia de combustibles fósiles, sino también generar empleo y fomentar la innovación en el sector energético."
+  },
+  {
+    "id": "noticia-es-2",
+    "titulo": "Inicia la Semana Grande de Bilbao",
+    "descripcion": "La tradicional festividad comienza con conciertos y fuegos artificiales.",
+    "imagen": "img/noticia-es-2.jpg",
+    "contenido": "La Semana Grande de Bilbao ha dado inicio con un espectacular despliegue de fuegos artificiales y conciertos que han congregado a miles de personas. Durante los próximos días, la ciudad se llenará de actividades culturales, música y gastronomía, atrayendo a visitantes de todas partes del mundo para disfrutar de esta tradicional festividad vasca."
+  },
+  {
+    "id": "noticia-do-1",
+    "titulo": "Tormenta tropical amenaza la región este del país",
+    "descripcion": "El COE emite alerta para varias provincias ante fuertes lluvias y vientos.",
+    "imagen": "img/noticia-do-1.jpg",
+    "contenido": "El Centro de Operaciones de Emergencia (COE) ha emitido una alerta para varias provincias de la región este del país ante la inminente llegada de una tormenta tropical. Se esperan fuertes lluvias y vientos que podrían causar inundaciones y deslizamientos de tierra. Las autoridades han instado a la población a tomar precauciones y seguir las recomendaciones de seguridad."
+  },
+  {
+    "id": "noticia-do-2",
+    "titulo": "Ministerio de Educación lanza plan digital 2025",
+    "descripcion": "El nuevo programa busca integrar tecnología en las escuelas públicas del país.",
+    "imagen": "img/noticia-do-2.jpg",
+    "contenido": "El Ministerio de Educación ha lanzado el Plan Digital 2025, un ambicioso programa que busca integrar la tecnología en las escuelas públicas de todo el país. La iniciativa incluye la dotación de dispositivos electrónicos a estudiantes y profesores, así como la capacitación en herramientas digitales para mejorar la calidad de la enseñanza y el aprendizaje."
+  }
+]

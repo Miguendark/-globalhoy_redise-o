@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle de Noticia - Global Hoy</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/widgets.css">
+</head>
+<body>
+  <header class="gh-header">
+    <div class="logo">GlobalHoy</div>
+    <div class="search-container">
+      <input type="text" placeholder="Buscar noticias..." class="search-input">
+      <button class="search-button">🔍</button>
+    </div>
+    <div class="user-actions">
+      <button id="settings-button">⚙️</button>
+      <div class="user-dropdown-menu" id="userDropdown">
+        <a href="#" onclick="cambiarPais()">Noticias por país</a>
+        <a href="#" onclick="cambiarIdioma()">Cambiar idioma</a>
+        <a href="#" onclick="verFavoritos()">⭐ Favoritos</a>
+        <a href="#" onclick="verHistorial()">Historial</a>
+        <a href="#" onclick="verNotificaciones()">Notificaciones</a>
+        <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="gh-widgets">
+    <section class="widget widget-principal">
+      <h2 id="noticia-titulo">Cargando título...</h2>
+      <img id="noticia-imagen" src="" alt="Imagen de la noticia" class="widget-image">
+      <p id="noticia-contenido">Cargando contenido...</p>
+    </section>
+  </main>
+
+  <footer class="gh-footer">
+    <p>&copy; 2025 GlobalHoy. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const noticiaId = urlParams.get('id');
+
+      if (noticiaId) {
+        fetch('public/noticias/detalles.json')
+          .then(response => response.json())
+          .then(data => {
+            const noticia = data.find(item => item.id === noticiaId);
+            if (noticia) {
+              document.getElementById('noticia-titulo').innerText = noticia.titulo;
+              document.getElementById('noticia-imagen').src = noticia.imagen;
+              document.getElementById('noticia-imagen').alt = noticia.titulo;
+              document.getElementById('noticia-contenido').innerText = noticia.contenido;
+            } else {
+              document.getElementById('noticia-titulo').innerText = 'Noticia no encontrada';
+              document.getElementById('noticia-contenido').innerText = 'Lo sentimos, la noticia que buscas no existe.';
+            }
+          })
+          .catch(error => console.error('Error cargando detalles de la noticia:', error));
+      } else {
+        document.getElementById('noticia-titulo').innerText = 'ID de noticia no proporcionado';
+        document.getElementById('noticia-contenido').innerText = 'Por favor, proporciona un ID de noticia válido en la URL.';
+      }
+    });
+  </script>
+</body>
+</html>

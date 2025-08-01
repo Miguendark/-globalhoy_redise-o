@@ -91,4 +91,30 @@ document.addEventListener("DOMContentLoaded", () => {
   window.cerrarSesion = function() {
     alert('Función: Cerrar sesión');
   };
+
+  // Lógica para cargar noticias en la página principal
+  function cargarNoticiasPrincipal() {
+    const noticiasContainer = document.getElementById('widgetNoticias');
+    if (!noticiasContainer) return;
+
+    fetch('public/noticias/detalles.json')
+      .then(response => response.json())
+      .then(data => {
+        noticiasContainer.innerHTML = ''; // Limpiar contenido existente
+        data.forEach(noticia => {
+          const newsCard = document.createElement('div');
+          newsCard.className = 'widget-card';
+          newsCard.innerHTML = `
+            <img class="widget-image" src="${noticia.imagen}" alt="${noticia.titulo}">
+            <div class="widget-header">${noticia.titulo}</div>
+            <p>${noticia.descripcion}</p>
+            <a href="noticia_detalle.html?id=${noticia.id}" class="btn-accion">Leer más</a>
+          `;
+          noticiasContainer.appendChild(newsCard);
+        });
+      })
+      .catch(error => console.error('Error cargando noticias principales:', error));
+  }
+
+  cargarNoticiasPrincipal(); // Llamar a la función al cargar la página
 });
