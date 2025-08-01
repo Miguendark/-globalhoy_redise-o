@@ -62,7 +62,9 @@ h1 {
   background-color: #555;
 }
 
-
+.user-menu:hover .dropdown-menu {
+  display: flex;
+}
 
 .dropdown-menu.visible {
   display: flex;
