@@ -19,55 +19,42 @@ h1 {
   margin: 0;
 }
 
-.user-menu {
+.menu-usuario {
   position: relative;
   display: inline-block;
-  margin: 20px;
 }
 
-#menu-toggle {
-  background-color: #222;
+.menu-usuario button {
+  background-color: #333;
   color: #fff;
   padding: 10px 15px;
   font-size: 16px;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
 }
 
-#menu-toggle:hover {
-  background-color: #444;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  background-color: #333;
-  min-width: 200px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  border-radius: 5px;
-  z-index: 1;
-  margin-top: 8px;
-}
-
-.dropdown-menu a {
+.menu-usuario ul {
+  background-color: #1e1e1e; /* gris oscuro */
   color: #fff;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.2s ease;
+  border: 1px solid #ccc;
+  padding: 10px;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  display: none;
+  z-index: 1000;
+  min-width: 180px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
-.dropdown-menu a:hover {
-  background-color: #555;
+.menu-usuario ul li {
+  padding: 10px;
+  cursor: pointer;
 }
 
-.user-menu:hover .dropdown-menu {
-  display: flex;
-}
-
-.dropdown-menu.visible {
-  display: flex;
+.menu-usuario ul li:hover {
+  background-color: #333;
 }
 
 h2, h3 {

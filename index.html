@@ -10,15 +10,15 @@
   <!-- Menú desplegable de usuario -->
   <header>
     <h1> Global Hoy</h1>
-    <div class="user-menu">
-      <button id="menu-toggle">☰ Usuario</button>
-      <div class="dropdown-menu" id="dropdown">
-        <a href="#">Noticias por país</a>
-        <a href="#">Cambio de idioma</a>
-        <a href="#">Historial y favoritos</a>
-        <a href="#">Notificaciones</a>
-        <a href="#">Cerrar sesión</a>
-      </div>
+    <div class="menu-usuario">
+      <button onclick="toggleMenu()">☰ Usuario</button>
+      <ul id="userMenu">
+        <li onclick="verNoticiasPorPais()">Noticias por país</li>
+        <li onclick="cambiarIdioma()">Cambio de idioma</li>
+        <li onclick="verHistorial()">Historial y favoritos</li>
+        <li onclick="verNotificaciones()">Notificaciones</li>
+        <li onclick="cerrarSesion()">Cerrar sesión</li>
+      </ul>
     </div>
   </header>
 
@@ -87,27 +87,44 @@
       cargarAnuncios(pais);
 
       // Lógica para el menú desplegable
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById("menu-toggle");
-      const dropdown = document.getElementById("dropdown");
+    function toggleMenu() {
+      const userMenu = document.getElementById('userMenu');
+      if (userMenu) {
+        userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
+      }
+    }
 
-      if (menuToggle && dropdown) {
-        menuToggle.addEventListener("click", function () {
-          dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        });
+    // Funciones de marcador de posición para el menú de usuario
+    function verNoticiasPorPais() {
+      alert('Función: Ver noticias por país');
+      // Aquí iría la lógica para mostrar el modal de país o la página de selección
+    }
+
+    function verNotificaciones() {
+      alert('Función: Ver notificaciones');
+      // Aquí iría la lógica para mostrar las notificaciones
+    }
+
+    // Cerrar modales al hacer clic fuera de ellos
+    window.onclick = function(event) {
+      const modalPais = document.getElementById('modalPais');
+      const modalIdioma = document.getElementById('modalIdioma');
+      if (event.target == modalPais) {
+        modalPais.style.display = 'none';
+      }
+      if (event.target == modalIdioma) {
+        modalIdioma.style.display = 'none';
       }
 
-      // Cerrar modales al hacer clic fuera de ellos
-      window.onclick = function(event) {
-        const modalPais = document.getElementById('modalPais');
-        const modalIdioma = document.getElementById('modalIdioma');
-        if (event.target == modalPais) {
-          modalPais.style.display = 'none';
+      // Cerrar menú si se hace clic fuera
+      const menuUsuario = document.querySelector('.menu-usuario');
+      if (menuUsuario && !menuUsuario.contains(event.target)) {
+        const userMenu = document.getElementById('userMenu');
+        if (userMenu) {
+          userMenu.style.display = 'none';
         }
-        if (event.target == modalIdioma) {
-          modalIdioma.style.display = 'none';
-        }
-      };
+      }
+    };
     });
     });
 
