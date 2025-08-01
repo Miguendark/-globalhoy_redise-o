@@ -39,6 +39,10 @@ body {
   transition: background-color 0.3s ease;
 }
 
+.user-actions {
+  position: relative;
+}
+
 .user-actions button {
   background: none;
   border: none;
@@ -51,6 +55,35 @@ body {
 .user-actions button:hover {
   transform: scale(1.1);
   color: var(--color-primary);
+}
+
+.user-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 0.5rem;
+  min-width: 180px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.user-dropdown-menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.user-dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+.user-dropdown-menu.show {
+  display: block;
 }
 
 .gh-nav .menu-btn {

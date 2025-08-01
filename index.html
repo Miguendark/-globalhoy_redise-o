@@ -20,21 +20,27 @@
       <button class="search-button">🔍</button>
     </div>
     <div class="user-actions">
-      <button></button>
-      <button>⚙️</button>
-      <button></button>
+      <button id="settings-button">⚙️</button>
+      <div class="user-dropdown-menu" id="userDropdown">
+        <a href="#" onclick="cambiarPais()">Noticias por país</a>
+        <a href="#" onclick="cambiarIdioma()">Cambiar idioma</a>
+        <a href="#" onclick="verFavoritos()">⭐ Favoritos</a>
+        <a href="#" onclick="verHistorial()">Historial</a>
+        <a href="#" onclick="verNotificaciones()">Notificaciones</a>
+        <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+      </div>
     </div>
   </header>
 
   <nav class="gh-nav">
     <button id="toggleMenu">☰ Usuario</button>
-    <div class="menu-desplegable" id="menuUsuario">
-      <a href="#"> Noticias por país</a>
-      <a href="#"> Cambiar idioma</a>
-      <a href="#">⭐ Favoritos</a>
-      <a href="#"> Notificaciones</a>
-      <a href="#"> Cerrar sesión</a>
-    </div>
+    <ul class="nav-list">
+      <li>Última Hora</li>
+      <li>Internacional</li>
+      <li>Tecnología</li>
+      <li>Salud</li>
+      <!-- Más categorías -->
+    </ul>
   </nav>
 
   <main class="gh-widgets">
