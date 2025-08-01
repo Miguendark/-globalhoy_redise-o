@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -16,37 +16,37 @@
   <nav id="sidebar-menu" class="sidebar-menu">
     <button id="close-sidebar-button" class="close-sidebar-button">×</button>
     <ul>
-      <li onclick="cambiarPais()" data-translate="news_by_country">Noticias por país</li>
-      <li onclick="cambiarIdioma()" data-translate="language">Cambio de idioma</li>
-      <li onclick="verHistorial()" data-translate="history">Historial y favoritos</li>
-      <li onclick="verNotificaciones()" data-translate="notifications">Notificaciones</li>
-      <li onclick="cerrarSesion()" data-translate="logout">Cerrar sesión</li>
+      <li onclick="cambiarPais()" data-translate="news_by_country">News by Country</li>
+      <li onclick="cambiarIdioma()" data-translate="language">Change Language</li>
+      <li onclick="verHistorial()" data-translate="history">History and Favorites</li>
+      <li onclick="verNotificaciones()" data-translate="notifications">Notifications</li>
+      <li onclick="cerrarSesion()" data-translate="logout">Log out</li>
     </ul>
   </nav>
 
   <!-- Contenido Principal -->
   <main>
     <section>
-      <h1 data-translate="welcome">Bienvenido a Global Hoy</h1>
-      <p data-translate="tagline">Tu fuente de noticias locales e internacionales, personalizadas por país y en tu idioma.</p>
+      <h1 data-translate="welcome">Welcome to Global Hoy</h1>
+      <p data-translate="tagline">Your source for local and international news, personalized by country and in your language.</p>
     </section>
 
     <!-- Contenedor unificado de noticias -->
     <section id="noticiasContainer">
-      <h2>Cargando noticias...</h2>
+      <h2>Loading news...</h2>
     </section>
 
     <!-- Anuncios Locales -->
     <section id="anuncio-local">
-      <h3>Anuncio para <span id="pais-anuncio">tu país</span></h3>
+      <h3>Ad for <span id="pais-anuncio">your country</span></h3>
       <p id="contenido-anuncio">...</p>
     </section>
 
     <!-- Suscripción -->
     <section>
-      <h2 data-translate="subscribe">Suscribirse a las Noticias</h2>
+      <h2 data-translate="subscribe">Subscribe to News</h2>
       <input type="email" placeholder="Enter your email" id="email-input" data-translate-placeholder="email_placeholder" />
-      <button onclick="suscribirse()" data-translate="subscribe">Suscribirse a las Noticias</button>
+      <button onclick="suscribirse()" data-translate="subscribe">Subscribe to News</button>
     </section>
   </main>
 
@@ -103,41 +103,41 @@
         es: "Lo último que pasa en España, aquí en Global Hoy"
       };
       document.getElementById('pais-anuncio').textContent = pais.toUpperCase();
-      document.getElementById('contenido-anuncio').textContent = anuncios[pais] || "Bienvenido a Global Hoy.";
+      document.getElementById('contenido-anuncio').textContent = anuncios[pais] || "Welcome to Global Hoy.";
     }
 
     function verFavoritos() {
       const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
-      alert("Favoritos: " + favoritos.join(", "));
+      alert("Favorites: " + favoritos.join(", "));
     }
 
     function verHistorial() {
       const historial = JSON.parse(localStorage.getItem("historial")) || [];
-      alert("Historial: " + historial.join(", "));
+      alert("History: " + historial.join(", "));
     }
 
     function toggleNotificaciones() {
       const estado = localStorage.getItem("notificaciones") === "on";
       localStorage.setItem("notificaciones", estado ? "off" : "on");
-      alert("Notificaciones " + (estado ? "desactivadas" : "activadas"));
+      alert("Notifications " + (estado ? "deactivated" : "activated"));
     }
 
     function cerrarSesion() {
-      alert("Sesión cerrada (esto es un ejemplo).");
+      alert("Session closed (this is an example).");
     }
 
     // Función para cargar el idioma
     function loadLanguage(lang) {
-      console.log(`Intentando cargar idioma: ${lang}`);
+      console.log(`Attempting to load language: ${lang}`);
       fetch(`public/i18n/${lang}.json`)
         .then(response => {
           if (!response.ok) {
-            throw new Error(`Error al cargar el archivo de idioma: ${response.statusText}`);
+            throw new Error(`Error loading language file: ${response.statusText}`);
           }
           return response.json();
         })
         .then(data => {
-          console.log(`Idioma ${lang} cargado exitosamente.`, data);
+          console.log(`Language ${lang} loaded successfully.`, data);
           document.querySelectorAll("[data-translate]").forEach(el => {
             const key = el.getAttribute("data-translate");
             if (data[key]) {
@@ -152,27 +152,27 @@
           });
         })
         .catch(error => {
-          console.error('Error en la carga del idioma:', error);
+          console.error('Error loading language:', error);
         });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM Content Loaded");
       const pais = localStorage.getItem("paisSeleccionado") || "us";
-      const idioma = localStorage.getItem("idiomaSeleccionado") || "en";
+      const idioma = localStorage.getItem("idiomaSeleccionado") || "en"; // Default to English
 
       // Cargar noticias locales (basado en idioma, no en país)
-      let newsFile = 'us'; // Por defecto para inglés
+      let newsFile = 'us'; // Default for English
       if (idioma === 'es') {
         newsFile = 'es';
       } else if (idioma === 'fr') {
-        newsFile = 'us'; // Si no hay noticias en francés, usar inglés
+        newsFile = 'us'; // If no French news, use English
       }
 
       fetch(`public/noticias/${newsFile}.json`)
         .then(res => res.json())
         .then(data => mostrarNoticias(data))
-        .catch(() => console.warn("No se pudieron cargar noticias del idioma."));
+        .catch(() => console.warn("Could not load news for the selected language."));
 
       // Cargar anuncios (basado en país)
       cargarAnuncios(pais);
@@ -186,18 +186,18 @@
       const closeSidebarButton = document.getElementById('close-sidebar-button');
 
       if (hamburgerButton && sidebarMenu && closeSidebarButton) {
-        console.log("Botón de hamburguesa y menú lateral encontrados.");
+        console.log("Hamburger button and sidebar menu found.");
         hamburgerButton.addEventListener('click', function() {
-          console.log("Clic en el botón de hamburguesa.");
-          sidebarMenu.style.width = '250px'; // Abrir el menú desde la derecha
+          console.log("Clicked hamburger button.");
+          sidebarMenu.style.width = '250px'; // Open menu from right
         });
 
         closeSidebarButton.addEventListener('click', function() {
-          console.log("Clic en el botón de cerrar sidebar.");
-          sidebarMenu.style.width = '0'; // Cerrar el menú
+          console.log("Clicked close sidebar button.");
+          sidebarMenu.style.width = '0'; // Close menu
         });
       } else {
-        console.warn("Elementos del menú lateral no encontrados.", { hamburgerButton, sidebarMenu, closeSidebarButton });
+        console.warn("Sidebar menu elements not found.", { hamburgerButton, sidebarMenu, closeSidebarButton });
       }
 
       // Cerrar modales al hacer clic fuera de ellos
@@ -213,7 +213,7 @@
 
         // Cerrar menú lateral si se hace clic fuera
         if (sidebarMenu && event.target !== hamburgerButton && !sidebarMenu.contains(event.target)) {
-          console.log("Clic fuera del sidebar o botón de hamburguesa. Cerrando sidebar.");
+          console.log("Clicked outside sidebar or hamburger button. Closing sidebar.");
           sidebarMenu.style.width = '0';
         }
       };
@@ -226,25 +226,25 @@
   <!-- Modal para cambiar país -->
 <div id="modalPais" class="modal">
   <div class="modal-content">
-    <h3>Selecciona tu país</h3>
+    <h3>Select your country</h3>
     <select id="paisSelect">
-      <option value="us">Estados Unidos</option>
-      <option value="es">España</option>
-      <option value="do">República Dominicana</option>
+      <option value="us">United States</option>
+      <option value="es">Spain</option>
+      <option value="do">Dominican Republic</option>
     </select>
-    <button onclick="guardarPais()">Guardar</button>
+    <button onclick="guardarPais()">Save</button>
   </div>
 </div>
 
 <!-- Modal para cambiar idioma -->
 <div id="modalIdioma" class="modal">
   <div class="modal-content">
-    <h3>Selecciona tu idioma</h3>
+    <h3>Select your language</h3>
     <select id="idiomaSelect">
       <option value="es">Español</option>
       <option value="en">English</option>
     </select>
-    <button onclick="guardarIdioma()">Guardar</button>
+    <button onclick="guardarIdioma()">Save</button>
   </div>
 </div>
 
