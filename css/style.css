@@ -1,34 +1,44 @@
-:root {
-  --color-bg: #f3f4f6;
-  --color-card: #ffffff;
-  --color-primary: #1e40af;
-  --color-text: #111827;
-  --color-gray-light: #e5e7eb;
-  --color-gray-dark: #6b7280;
-}
-
-body {
+/* Banner API Simulada */
+.api-banner {
+  background-color: #ffe58a;
+  color: #000;
+  padding: 8px 16px;
+  font-size: 14px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+}
+.api-banner.hidden {
+  display: none;
+}
+body {
+  padding-top: 40px; /* espacio para el banner */
 }
 
+/* Estilos generales para el nuevo diseño */
 .gh-header {
   background-color: var(--color-card);
   padding: 1rem;
   display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan */
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: background-color 0.3s ease;
 }
 
 .logo {
   font-weight: bold;
   font-size: 1.5rem;
   color: var(--color-primary);
+  flex-shrink: 0; /* Evita que el logo se encoja */
 }
 
 .search-container {
@@ -61,6 +71,7 @@ body {
 
 .user-menu-container {
   position: relative;
+  flex-shrink: 0; /* Evita que el menú de usuario se encoja */
 }
 
 .user-menu-button {
@@ -147,8 +158,13 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .gh-header {
+    flex-direction: column; /* Apila los elementos en móvil */
+    align-items: flex-start;
+  }
+
   .search-container {
-    max-width: 100%;
+    width: 100%; /* Ocupa todo el ancho disponible */
     margin: 0.5rem 0;
   }
 

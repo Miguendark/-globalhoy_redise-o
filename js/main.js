@@ -1,22 +1,14 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Lógica para el menú desplegable de usuario
-  const userMenuButton = document.querySelector('.user-menu-button');
-  const userDropdownMenu = document.querySelector('.user-dropdown-menu');
+// apiSimuladaBanner.js
+document.addEventListener("DOMContentLoaded", () => {
+  const banner = document.getElementById("api-simulada-banner");
 
-  if (userMenuButton && userDropdownMenu) {
-    userMenuButton.addEventListener('click', () => {
-      userDropdownMenu.classList.toggle('show');
-    });
+  const usandoApiReal = false; // ⚠️ CAMBIA a true cuando conectes tu API real
 
-    // Cerrar el menú si se hace clic fuera de él
-    window.addEventListener('click', (event) => {
-      if (!userDropdownMenu.contains(event.target) && event.target !== userMenuButton) {
-        userDropdownMenu.classList.remove('show');
-      }
-    });
+  if (usandoApiReal) {
+    banner.classList.add("hidden");
   }
 
-  // Lógica para el buscador
+  // Funcionalidad del buscador
   const searchInput = document.querySelector('.search-input');
   const searchButton = document.querySelector('.search-button');
 
@@ -40,11 +32,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Lógica para el banner de API simulada
-  const banner = document.getElementById("api-simulada-banner");
-  const usandoApiReal = false; // ⚠️ CAMBIA a true cuando conectes tu API real
-  if (usandoApiReal) {
-    banner.classList.add("hidden");
+  // Funcionalidad del menú de usuario
+  const settingsButton = document.getElementById('settings-button');
+  const userDropdown = document.getElementById('userDropdown');
+
+  if (settingsButton && userDropdown) {
+    settingsButton.addEventListener('click', (event) => {
+      userDropdown.classList.toggle('show');
+      event.stopPropagation(); // Evita que el clic se propague a window y cierre el menú
+    });
+
+    // Cerrar el menú si se hace clic fuera de él
+    window.addEventListener('click', (event) => {
+      if (!userDropdown.contains(event.target) && event.target !== settingsButton) {
+        userDropdown.classList.remove('show');
+      }
+    });
+  }
+
+  // Funcionalidad del menú de navegación principal (☰ Usuario)
+  const toggleMenuButton = document.getElementById('toggleMenu');
+  const menuUsuario = document.getElementById('menuUsuario');
+
+  if (toggleMenuButton && menuUsuario) {
+    toggleMenuButton.addEventListener('click', () => {
+      menuUsuario.classList.toggle('show');
+    });
+
+    // Cerrar el menú si se hace clic fuera de él
+    window.addEventListener('click', (event) => {
+      if (!menuUsuario.contains(event.target) && event.target !== toggleMenuButton) {
+        menuUsuario.classList.remove('show');
+      }
+    });
   }
 
   // Funciones de marcador de posición para el menú de usuario
