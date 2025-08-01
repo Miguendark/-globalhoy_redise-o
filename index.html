@@ -1,252 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Global Hoy</title>
-  <link rel="stylesheet" href="estilos.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlobalHoy - Noticias</title>
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/widgets.css" />
 </head>
 <body>
-  <header>
-    <h1> Global Hoy</h1>
-    <button id="hamburger-menu-button" class="hamburger-menu-button">☰</button>
+  <!-- Banner de aviso de datos simulados -->
+  <div id="api-simulada-banner" class="api-banner">
+    ⚠️ Mostrando datos simulados mientras se conecta a la API real.
+  </div>
+  <header class="gh-header">
+    <div class="logo">GlobalHoy</div>
+    <div class="search-widget">
+      <input type="text" placeholder="Buscar noticias..." class="search-input">
+      <button class="search-button">🔍</button>
+    </div>
+    <div class="user-actions">
+      <button></button>
+      <button>⚙️</button>
+      <button></button>
+    </div>
   </header>
 
-  <!-- Menú Lateral (Sidebar) -->
-  <nav id="sidebar-menu" class="sidebar-menu">
-    <button id="close-sidebar-button" class="close-sidebar-button">×</button>
-    <ul>
-      <li onclick="cambiarPais()" data-translate="news_by_country">News by Country</li>
-      <li onclick="cambiarIdioma()" data-translate="language">Change Language</li>
-      <li onclick="verHistorial()" data-translate="history">History and Favorites</li>
-      <li onclick="verNotificaciones()" data-translate="notifications">Notifications</li>
-      <li onclick="cerrarSesion()" data-translate="logout">Log out</li>
-    </ul>
+  <nav class="gh-nav">
+    <button id="toggleMenu">☰ Usuario</button>
+    <div class="menu-desplegable" id="menuUsuario">
+      <a href="#"> Noticias por país</a>
+      <a href="#"> Cambiar idioma</a>
+      <a href="#">⭐ Favoritos</a>
+      <a href="#"> Notificaciones</a>
+      <a href="#"> Cerrar sesión</a>
+    </div>
   </nav>
 
-  <!-- Contenido Principal -->
-  <main>
-    <section>
-      <h1 data-translate="welcome">Welcome to Global Hoy</h1>
-      <p data-translate="tagline">Your source for local and international news, personalized by country and in your language.</p>
+  <main class="gh-widgets">
+    <section class="widget widget-clima" id="widgetClima">
     </section>
 
-    <!-- Contenedor unificado de noticias -->
-    <section id="noticiasContainer">
-      <h2>Loading news...</h2>
+    <section class="widget widget-principal" id="widgetPrincipal">
     </section>
 
-    <!-- Anuncios Locales -->
-    <section id="anuncio-local">
-      <h3>Ad for <span id="pais-anuncio">your country</span></h3>
-      <p id="contenido-anuncio">...</p>
+    <section class="widget widget-grid" id="widgetNoticias">
     </section>
 
-    <!-- Suscripción -->
-    <section>
-      <h2 data-translate="subscribe">Subscribe to News</h2>
-      <input type="email" placeholder="Enter your email" id="email-input" data-translate-placeholder="email_placeholder" />
-      <button onclick="suscribirse()" data-translate="subscribe">Subscribe to News</button>
+    <section class="widget widget-juegos">
+      <h3> Juegos recomendados</h3>
+      <div class="juegos-grid">
+      </div>
+    </section>
+
+    <section class="widget widget-anuncio" id="widgetAds">
     </section>
   </main>
 
-  <!-- Script de detección + carga -->
-  <script>
-    // Mostrar modal de país
-    function cambiarPais() {
-      document.getElementById("modalPais").style.display = "block";
-      document.getElementById("sidebar-menu").style.width = "0"; // Cerrar sidebar
-    }
+  <footer class="gh-footer">
+    <p>&copy; 2025 GlobalHoy. Todos los derechos reservados.</p>
+  </footer>
 
-    // Mostrar modal de idioma
-    function cambiarIdioma() {
-      document.getElementById("modalIdioma").style.display = "block";
-      document.getElementById("sidebar-menu").style.width = "0"; // Cerrar sidebar
-    }
-
-    // Guardar país y recargar noticias
-    function guardarPais() {
-      const pais = document.getElementById("paisSelect").value;
-      localStorage.setItem("paisSeleccionado", pais);
-      location.reload();
-    }
-
-    // Guardar idioma
-    function guardarIdioma() {
-      const idioma = document.getElementById("idiomaSelect").value;
-      localStorage.setItem("idiomaSeleccionado", idioma);
-      location.reload();
-    }
-
-    // Esta función ya debe estar, pero si no:
-    function mostrarNoticias(data) {
-      const contenedor = document.getElementById("noticiasContainer");
-      contenedor.innerHTML = "";
-      data.forEach(noticia => {
-        const div = document.createElement("div");
-        div.innerHTML = `<h3>${noticia.titulo}</h3><p>${noticia.descripcion}</p>`;
-        contenedor.appendChild(div);
-      });
-    }
-
-    // Funciones de utilidad (mantener si no están en archivos JS externos)
-    function suscribirse() {
-      const email = document.getElementById('email-input').value;
-      alert(`Gracias por suscribirte con: ${email}`);
-      // Aquí puedes enviar el email a tu base de datos o API
-    }
-
-    function cargarAnuncios(pais) {
-      const anuncios = {
-        do: "¡Disfruta de nuestras noticias desde República Dominicana!",
-        us: "Noticias importantes para ti desde EE.UU.",
-        es: "Lo último que pasa en España, aquí en Global Hoy"
-      };
-      document.getElementById('pais-anuncio').textContent = pais.toUpperCase();
-      document.getElementById('contenido-anuncio').textContent = anuncios[pais] || "Welcome to Global Hoy.";
-    }
-
-    function verFavoritos() {
-      const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
-      alert("Favorites: " + favoritos.join(", "));
-    }
-
-    function verHistorial() {
-      const historial = JSON.parse(localStorage.getItem("historial")) || [];
-      alert("History: " + historial.join(", "));
-    }
-
-    function toggleNotificaciones() {
-      const estado = localStorage.getItem("notificaciones") === "on";
-      localStorage.setItem("notificaciones", estado ? "off" : "on");
-      alert("Notifications " + (estado ? "deactivated" : "activated"));
-    }
-
-    function cerrarSesion() {
-      alert("Session closed (this is an example).");
-    }
-
-    // Función para cargar el idioma
-    function loadLanguage(lang) {
-      console.log(`Attempting to load language: ${lang}`);
-      fetch(`public/i18n/${lang}.json`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Error loading language file: ${response.statusText}`);
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log(`Language ${lang} loaded successfully.`, data);
-          document.querySelectorAll("[data-translate]").forEach(el => {
-            const key = el.getAttribute("data-translate");
-            if (data[key]) {
-              el.innerHTML = data[key];
-            }
-          });
-          document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
-            const key = el.getAttribute("data-translate-placeholder");
-            if (data[key]) {
-              el.placeholder = data[key];
-            }
-          });
-        })
-        .catch(error => {
-          console.error('Error loading language:', error);
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      console.log("DOM Content Loaded");
-      const pais = localStorage.getItem("paisSeleccionado") || "us";
-      const idioma = localStorage.getItem("idiomaSeleccionado") || "en"; // Default to English
-
-      // Cargar noticias locales (basado en idioma, no en país)
-      let newsFile = 'us'; // Default for English
-      if (idioma === 'es') {
-        newsFile = 'es';
-      } else if (idioma === 'fr') {
-        newsFile = 'us'; // If no French news, use English
-      }
-
-      fetch(`public/noticias/${newsFile}.json`)
-        .then(res => res.json())
-        .then(data => mostrarNoticias(data))
-        .catch(() => console.warn("Could not load news for the selected language."));
-
-      // Cargar anuncios (basado en país)
-      cargarAnuncios(pais);
-
-      // Cargar idioma
-      loadLanguage(idioma);
-
-      // Lógica para el menú lateral
-      const hamburgerButton = document.getElementById('hamburger-menu-button');
-      const sidebarMenu = document.getElementById('sidebar-menu');
-      const closeSidebarButton = document.getElementById('close-sidebar-button');
-
-      if (hamburgerButton && sidebarMenu && closeSidebarButton) {
-        console.log("Hamburger button and sidebar menu found.");
-        hamburgerButton.addEventListener('click', function() {
-          console.log("Clicked hamburger button.");
-          sidebarMenu.style.width = '250px'; // Open menu from right
-        });
-
-        closeSidebarButton.addEventListener('click', function() {
-          console.log("Clicked close sidebar button.");
-          sidebarMenu.style.width = '0'; // Close menu
-        });
-      } else {
-        console.warn("Sidebar menu elements not found.", { hamburgerButton, sidebarMenu, closeSidebarButton });
-      }
-
-      // Cerrar modales al hacer clic fuera de ellos
-      window.onclick = function(event) {
-        const modalPais = document.getElementById('modalPais');
-        const modalIdioma = document.getElementById('modalIdioma');
-        if (event.target == modalPais) {
-          modalPais.style.display = 'none';
-        }
-        if (event.target == modalIdioma) {
-          modalIdioma.style.display = 'none';
-        }
-
-        // Cerrar menú lateral si se hace clic fuera
-        if (sidebarMenu && event.target !== hamburgerButton && !sidebarMenu.contains(event.target)) {
-          console.log("Clicked outside sidebar or hamburger button. Closing sidebar.");
-          sidebarMenu.style.width = '0';
-        }
-      };
-    });
-  </script>
-  <script src="js/cookies.js"></script>
-  <script src="js/favoritos.js"></script>
-  <script src="js/historial.js"></script>
-  <script src="js/notificaciones.js"></script>
-  <!-- Modal para cambiar país -->
-<div id="modalPais" class="modal">
-  <div class="modal-content">
-    <h3>Select your country</h3>
-    <select id="paisSelect">
-      <option value="us">United States</option>
-      <option value="es">Spain</option>
-      <option value="do">Dominican Republic</option>
-    </select>
-    <button onclick="guardarPais()">Save</button>
-  </div>
-</div>
-
-<!-- Modal para cambiar idioma -->
-<div id="modalIdioma" class="modal">
-  <div class="modal-content">
-    <h3>Select your language</h3>
-    <select id="idiomaSelect">
-      <option value="es">Español</option>
-      <option value="en">English</option>
-    </select>
-    <button onclick="guardarIdioma()">Save</button>
-  </div>
-</div>
-
+  <script src="/js/main.js"></script>
 </body>
 </html>

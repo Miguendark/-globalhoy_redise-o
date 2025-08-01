@@ -1,0 +1,129 @@
+/* Estructura general para móvil */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f3f3f3;
+  color: #111;
+  overflow-x: hidden;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Tarjetas tipo widget */
+.widget-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1rem;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.widget-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.widget-header {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Imagen destacada */
+.widget-image {
+  width: 100%;
+  border-radius: 0.75rem;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+  max-height: 200px;
+}
+
+/* Secciones especiales (como clima, juegos, anuncios) */
+.widget-clima, .widget-juegos, .widget-anuncio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Estilo responsive */
+@media screen and (min-width: 768px) {
+  main {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1024px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Botones y etiquetas */
+.btn-accion {
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-accion:hover {
+  background-color: #005fa3;
+}
+
+.label-categoria {
+  background-color: #d9f0ff;
+  color: #0078d4;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  display: inline-block;
+  margin-top: 0.25rem;
+}
+
+/* Widgets scroll horizontal */
+.widget-scroll-x {
+  overflow-x: auto;
+  display: flex;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+}
+
+.widget-scroll-x > div {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 160px;
+}
+
+/* Widget clima con fondo */
+.widget-clima {
+  background: linear-gradient(135deg, #0063B1, #00A4EF);
+  color: white;
+}
+
+.widget-clima h4 {
+  margin: 0 0 0.3rem;
+}
+
+/* Scroll amigable */
+::-webkit-scrollbar {
+  height: 6px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
