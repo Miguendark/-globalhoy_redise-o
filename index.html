@@ -179,11 +179,14 @@
       const closeSidebarButton = document.getElementById('close-sidebar-button');
 
       if (hamburgerButton && sidebarMenu && closeSidebarButton) {
+        console.log("Botón de hamburguesa y menú lateral encontrados.");
         hamburgerButton.addEventListener('click', function() {
-          sidebarMenu.style.width = '250px'; // Abrir el menú
+          console.log("Clic en el botón de hamburguesa.");
+          sidebarMenu.style.width = '250px'; // Abrir el menú desde la derecha
         });
 
         closeSidebarButton.addEventListener('click', function() {
+          console.log("Clic en el botón de cerrar sidebar.");
           sidebarMenu.style.width = '0'; // Cerrar el menú
         });
       } else {
@@ -203,6 +206,7 @@
 
         // Cerrar menú lateral si se hace clic fuera
         if (sidebarMenu && event.target !== hamburgerButton && !sidebarMenu.contains(event.target)) {
+          console.log("Clic fuera del sidebar o botón de hamburguesa. Cerrando sidebar.");
           sidebarMenu.style.width = '0';
         }
       };
