@@ -55,16 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuUsuario = document.getElementById('menuUsuario');
 
   if (toggleMenuButton && menuUsuario) {
+    console.log("main.js: Botón de menú principal y menú de usuario encontrados.");
     toggleMenuButton.addEventListener('click', () => {
+      console.log("main.js: Clic en el botón de menú principal.");
       menuUsuario.classList.toggle('show');
     });
 
     // Cerrar el menú si se hace clic fuera de él
     window.addEventListener('click', (event) => {
       if (!menuUsuario.contains(event.target) && event.target !== toggleMenuButton) {
+        console.log("main.js: Clic fuera del menú principal. Cerrando menú.");
         menuUsuario.classList.remove('show');
       }
     });
+  } else {
+    console.warn("main.js: Elementos del menú principal no encontrados.", { toggleMenuButton, menuUsuario });
   }
 
   // Funciones de marcador de posición para el menú de usuario

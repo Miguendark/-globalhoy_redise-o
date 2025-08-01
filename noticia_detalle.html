@@ -42,28 +42,41 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      console.log("noticia_detalle.html: DOMContentLoaded");
       const urlParams = new URLSearchParams(window.location.search);
       const noticiaId = urlParams.get('id');
+      console.log("noticia_detalle.html: ID de noticia de la URL:", noticiaId);
 
       if (noticiaId) {
         fetch('public/noticias/detalles.json')
-          .then(response => response.json())
+          .then(response => {
+            console.log("noticia_detalle.html: Respuesta de fetch para detalles.json:", response);
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
           .then(data => {
+            console.log("noticia_detalle.html: Datos cargados de detalles.json:", data);
             const noticia = data.find(item => item.id === noticiaId);
+            console.log("noticia_detalle.html: Noticia encontrada:", noticia);
             if (noticia) {
               document.getElementById('noticia-titulo').innerText = noticia.titulo;
               document.getElementById('noticia-imagen').src = noticia.imagen;
               document.getElementById('noticia-imagen').alt = noticia.titulo;
               document.getElementById('noticia-contenido').innerText = noticia.contenido;
+              console.log("noticia_detalle.html: Contenido de la noticia actualizado.");
             } else {
               document.getElementById('noticia-titulo').innerText = 'Noticia no encontrada';
               document.getElementById('noticia-contenido').innerText = 'Lo sentimos, la noticia que buscas no existe.';
+              console.warn("noticia_detalle.html: Noticia no encontrada en los datos.");
             }
           })
-          .catch(error => console.error('Error cargando detalles de la noticia:', error));
+          .catch(error => console.error('noticia_detalle.html: Error cargando detalles de la noticia:', error));
       } else {
         document.getElementById('noticia-titulo').innerText = 'ID de noticia no proporcionado';
         document.getElementById('noticia-contenido').innerText = 'Por favor, proporciona un ID de noticia válido en la URL.';
+        console.warn("noticia_detalle.html: ID de noticia no proporcionado en la URL.");
       }
     });
   </script>

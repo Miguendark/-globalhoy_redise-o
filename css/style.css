@@ -69,17 +69,23 @@ body {
   color: var(--color-gray-dark);
 }
 
-.user-menu-container {
+.user-actions {
   position: relative;
   flex-shrink: 0; /* Evita que el menú de usuario se encoja */
 }
 
-.user-menu-button {
+.user-actions button {
   background: none;
   border: none;
+  margin-left: 0.5rem;
   font-size: 1.2rem;
   cursor: pointer;
-  color: var(--color-text);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.user-actions button:hover {
+  transform: scale(1.1);
+  color: var(--color-primary);
 }
 
 .user-dropdown-menu {
@@ -154,6 +160,35 @@ body {
   font-size: 0.9rem;
   color: var(--color-gray-dark);
   box-shadow: 0 -1px 4px rgba(0,0,0,0.05);
+}
+
+/* Estilos para el menú desplegable principal */
+.menu-desplegable {
+  display: none; /* Oculto por defecto */
+  position: absolute;
+  top: 100%; /* Debajo del botón */
+  left: 0;
+  background-color: var(--color-card);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 0.5rem;
+  min-width: 180px;
+  z-index: 1001;
+  padding: 0.5rem 0;
+}
+
+.menu-desplegable a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.menu-desplegable a:hover {
+  background-color: var(--color-gray-light);
+}
+
+.menu-desplegable.show {
+  display: block;
 }
 
 /* Responsive */
