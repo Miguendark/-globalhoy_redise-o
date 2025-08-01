@@ -24,7 +24,7 @@ h1 {
   display: inline-block;
 }
 
-.menu-usuario button {
+#menu-toggle-button {
   background-color: #333;
   color: #fff;
   padding: 10px 15px;

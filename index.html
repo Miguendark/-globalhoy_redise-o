@@ -11,7 +11,7 @@
   <header>
     <h1> Global Hoy</h1>
     <div class="menu-usuario">
-      <button onclick="toggleMenu()">☰ Usuario</button>
+      <button id="menu-toggle-button">☰ Usuario</button>
       <ul id="userMenu">
         <li onclick="verNoticiasPorPais()">Noticias por país</li>
         <li onclick="cambiarIdioma()">Cambio de idioma</li>
@@ -87,44 +87,35 @@
       cargarAnuncios(pais);
 
       // Lógica para el menú desplegable
-    function toggleMenu() {
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggleButton = document.getElementById('menu-toggle-button');
       const userMenu = document.getElementById('userMenu');
-      if (userMenu) {
-        userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
-      }
-    }
 
-    // Funciones de marcador de posición para el menú de usuario
-    function verNoticiasPorPais() {
-      alert('Función: Ver noticias por país');
-      // Aquí iría la lógica para mostrar el modal de país o la página de selección
-    }
-
-    function verNotificaciones() {
-      alert('Función: Ver notificaciones');
-      // Aquí iría la lógica para mostrar las notificaciones
-    }
-
-    // Cerrar modales al hacer clic fuera de ellos
-    window.onclick = function(event) {
-      const modalPais = document.getElementById('modalPais');
-      const modalIdioma = document.getElementById('modalIdioma');
-      if (event.target == modalPais) {
-        modalPais.style.display = 'none';
-      }
-      if (event.target == modalIdioma) {
-        modalIdioma.style.display = 'none';
+      if (menuToggleButton && userMenu) {
+        menuToggleButton.addEventListener('click', function() {
+          userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
+        });
       }
 
-      // Cerrar menú si se hace clic fuera
-      const menuUsuario = document.querySelector('.menu-usuario');
-      if (menuUsuario && !menuUsuario.contains(event.target)) {
-        const userMenu = document.getElementById('userMenu');
-        if (userMenu) {
-          userMenu.style.display = 'none';
+      // Cerrar modales al hacer clic fuera de ellos
+      window.onclick = function(event) {
+        const modalPais = document.getElementById('modalPais');
+        const modalIdioma = document.getElementById('modalIdioma');
+        if (event.target == modalPais) {
+          modalPais.style.display = 'none';
         }
-      }
-    };
+        if (event.target == modalIdioma) {
+          modalIdioma.style.display = 'none';
+        }
+
+        // Cerrar menú si se hace clic fuera
+        const menuUsuarioDiv = document.querySelector('.menu-usuario');
+        if (menuUsuarioDiv && !menuUsuarioDiv.contains(event.target)) {
+          if (userMenu) {
+            userMenu.style.display = 'none';
+          }
+        }
+      };
     });
     });
 
