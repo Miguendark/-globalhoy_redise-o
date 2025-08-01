@@ -28,7 +28,7 @@
   <main>
     <section>
       <h1 data-translate="welcome">Bienvenido a Global Hoy</h1>
-      <p>Tu fuente de noticias locales e internacionales, personalizadas por país y en tu idioma.</p>
+      <p data-translate="tagline">Tu fuente de noticias locales e internacionales, personalizadas por país y en tu idioma.</p>
     </section>
 
     <!-- Contenedor unificado de noticias -->
@@ -45,7 +45,7 @@
     <!-- Suscripción -->
     <section>
       <h2 data-translate="subscribe">Suscribirse a las Noticias</h2>
-      <input type="email" placeholder="Enter your email" id="email-input" />
+      <input type="email" placeholder="Enter your email" id="email-input" data-translate-placeholder="email_placeholder" />
       <button onclick="suscribirse()" data-translate="subscribe">Suscribirse a las Noticias</button>
     </section>
   </main>
@@ -79,7 +79,7 @@
     }
 
     // Esta función ya debe estar, pero si no:
-    function mostrarNoticias(data, idioma) {
+    function mostrarNoticias(data) {
       const contenedor = document.getElementById("noticiasContainer");
       contenedor.innerHTML = "";
       data.forEach(noticia => {
@@ -161,13 +161,20 @@
       const pais = localStorage.getItem("paisSeleccionado") || "us";
       const idioma = localStorage.getItem("idiomaSeleccionado") || "en";
 
-      // Cargar noticias locales
-      fetch(`public/noticias/${pais}.json`)
-        .then(res => res.json())
-        .then(data => mostrarNoticias(data, idioma))
-        .catch(() => console.warn("No se pudieron cargar noticias del país."));
+      // Cargar noticias locales (basado en idioma, no en país)
+      let newsFile = 'us'; // Por defecto para inglés
+      if (idioma === 'es') {
+        newsFile = 'es';
+      } else if (idioma === 'fr') {
+        newsFile = 'us'; // Si no hay noticias en francés, usar inglés
+      }
 
-      // Cargar anuncios
+      fetch(`public/noticias/${newsFile}.json`)
+        .then(res => res.json())
+        .then(data => mostrarNoticias(data))
+        .catch(() => console.warn("No se pudieron cargar noticias del idioma."));
+
+      // Cargar anuncios (basado en país)
       cargarAnuncios(pais);
 
       // Cargar idioma
